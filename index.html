@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="keywords" content="shenshen han, network, software, arduino, html5, indiana university, university of california, irvine"/>
+        <title>Shenshen Han</title>
+        <link rel="stylesheet" href="lib/at-ui-style/css/at.min.css">
+        <script src="lib/vue/vue.min.js"></script>
+        <script src="lib/at-ui/at.min.js"></script>
+        <style>
+            #app {
+                height: 100%;
+            }
+
+            p {
+                color: #DFDFDF;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" class="at-menu--dark">
+            <div class="container" style="width: 90%; padding-top: 50px;">
+                <div class="row no-gutter">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <at-menu v-bind:theme="'dark'" v-bind:mode="'vertical'" active-name="0" v-on:on-select="goPage"
+                                 style="margin-bottom: 50px;">
+                            <at-menu-item name="0"><i class="icon icon-user"></i>ME</at-menu-item>
+                            <at-menu-item name="1"><i class="icon icon-globe"></i>HTML5</at-menu-item>
+                            <at-menu-item name="2"><i class="icon icon-box"></i>CROSS-PLATFORM</at-menu-item>
+                            <at-menu-item name="3"><i class="icon icon-credit-card"></i>EMBEDDED</at-menu-item>
+                            <at-menu-item name="4"><i class="icon icon-command"></i>JAVA</at-menu-item>
+                            <at-menu-item name="5"><i class="icon icon-play-circle"></i>GAME</at-menu-item>
+                        </at-menu>
+                    </div>
+                    <div class="col-md-10">
+                        <div v-if="page == 0">
+                            <div style="margin-bottom: 100px;">Hi this is Shenshen. I like to call myself a cyber lancer, since I believe we should make the Computer and Internet technologies doing good for people. I am currently working as a System Developer at the <a href="http://creativitylabs.com/" target="_blank">Creativity Labs</a> @ <a href="https://www.ics.uci.edu/" target="_blank">UCI</a>. Shoot me an <a href="mailto:hanaldo520124@gmail.com">email</a> anytime if you are interested in any collaboration.</div>
+                            <at-timeline>
+                                <at-timeline-item><p>1985 👶</p></at-timeline-item>
+                                <at-timeline-item><p>2001 ✈️🇬🇧</p></at-timeline-item>
+                                <at-timeline-item><p>2004 🏴󠁧󠁢󠁳󠁣󠁴󠁿 <img src="img/standrews.png" width="18"/></p></at-timeline-item>
+                                <at-timeline-item><p>2010 ✈️🇺🇸</p></at-timeline-item>
+                                <at-timeline-item><p>2011 🇺🇸 <img src="img/iu.png" width="16"/></p></at-timeline-item>
+                                <at-timeline-item><p>2014 <img src="img/cl.png" width="20"/> <img src="img/ow.png" width="18"/></p></at-timeline-item>
+                                <at-timeline-item><p>2017 😇❤️</p></at-timeline-item>
+                                <at-timeline-item><p>2019 ✈️🇺🇸<img src="img/uci.png" width="18"/></p></at-timeline-item>
+                            </at-timeline>
+                        </div>
+                        <div v-if="page != 0">
+                            ...under construction
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    page: 0
+                },
+                methods: {
+                    hello() {
+                        this.$Message("hello");
+                    },
+                    goPage(id) {
+                        this.page = id;
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
