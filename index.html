@@ -6,8 +6,10 @@
         <meta name="keywords" content="shenshen han, network, software, arduino, html5, indiana university, university of california, irvine"/>
         <title>Shenshen Han</title>
         <link rel="stylesheet" href="lib/at-ui-style/css/at.min.css">
+        <link rel="stylesheet" href="lib/materialize/css/materialize.min.css"/>
         <script src="lib/vue/vue.min.js"></script>
         <script src="lib/at-ui/at.min.js"></script>
+        <script src="lib/materialize/js/materialize.min.js"></script>
         <style>
             p {
                 color: #DFDFDF;
@@ -50,7 +52,21 @@
                                 <at-timeline-item><p>2019 ✈️🇺🇸<img src="img/uci.png" width="18"/></p></at-timeline-item>
                             </at-timeline>
                         </div>
-                        <div v-if="page != 0">
+                        <div v-if="page == 1">
+                            <div class="card blue-grey darken-1" v-for="post in posts[0]">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" v-bind:src="post.cover" v-bind:style="post.style" style="display: block; margin-left: auto; margin-right: auto;">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator">{{post.title}}</span>
+                                </div>
+                                <div class="card-reveal blue-grey darken-1">
+                                    <span class="card-title">{{post.title}}<i class="icon icon-x right"></i></span>
+                                    <p style="padding-top: 16px;" v-html="post.content"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="page > 1">
                             ...under construction
                         </div>
                     </div>
@@ -58,22 +74,6 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            new Vue({
-                el: "#app",
-                data: {
-                    page: 0
-                },
-                methods: {
-                    hello() {
-                        this.$Message("hello");
-                    },
-                    goPage(id) {
-                        this.page = id;
-                    }
-                }
-            });
-        </script>
+        <script src="lib/myapp.js"></script>
     </body>
 </html>
