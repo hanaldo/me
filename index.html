@@ -56,7 +56,7 @@
                                 <at-timeline-item><p>2019 ✈️🇺🇸<img src="img/uci.png" width="18"/></p></at-timeline-item>
                             </at-timeline>
                         </div>
-                        <div v-if="page == 1">
+                        <div v-show="page == 1">
                             <div class="card blue-grey darken-1" v-for="post in posts[0]">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" v-bind:src="post.cover" v-bind:style="post.style" style="display: block; margin-left: auto; margin-right: auto;">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="page == 2">
+                        <div v-show="page == 2">
                             <div class="card blue-grey darken-1" v-for="post in posts[1]">
                                 <div class="card-image waves-effect waves-block waves-light">
                                     <img class="activator" v-bind:src="post.cover" v-bind:style="post.style" style="display: block; margin-left: auto; margin-right: auto;">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="page > 2">
+                        <div v-show="page > 2">
                             ...under construction
                         </div>
                     </div>
