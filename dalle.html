@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <style>
+        #inputPrompt {
+            width: 500px;
+            background-color: #eee;
+            text-align: right;
+            padding: 10px;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            font-size: 24px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center;">
+        <div style="display: flex; flex-direction: column;">
+            <input id="inputPrompt" type="text" />
+            <button id="buttonSend" class="button">Send</button>
+
+            <div id="predictionsList"></div>
+        </div>
+        <div id="images"></div>
+    </div>
+    <script>
+        const inputValueName = "prompt";
+
+        const buttonSend = document.getElementById("buttonSend");
+        buttonSend.addEventListener("click", async function () {
+            const inputValue = document.getElementById("inputPrompt").value;
+            if (!inputValue.trim()) {
+                alert("Please type something!");
+                return;
+            }
+
+            const data = {
+                version: "2e3975b1692cd6aecac28616dba364cc9f1e30c610c6efd62dbe9b9c7d1d03ea",
+                input: {}
+            };
+            data.input[inputValueName] = inputValue.trim();
+
+            const res = await fetch("https://api.replicate.com/v1/predictions", {
+                method: "POST",
+                headers: {
+                    "authorization": "Token 07dda714b75046ebc87806db1916ea57fd857cb4",
+                    "content-type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                body: JSON.stringify(data)
+            });
+            const resJson = await res.json();
+            console.log(resJson);
+            alert(resJson.status + ": " + resJson.input[inputValueName]);
+
+            const div = document.createElement("div");
+            const text = document.createTextNode(resJson.id);
+            div.appendChild(text);
+
+            //Cancel Button
+            const buttonCancel = document.createElement("button");
+            buttonCancel.innerHTML = "Cancel Prediction";
+            buttonCancel.addEventListener("click", async function () {
+                const cancelRes = await fetch(resJson.urls.cancel, {
+                    method: "POST",
+                    headers: {
+                        "authorization": "Token 07dda714b75046ebc87806db1916ea57fd857cb4"
+                    }
+                });
+                const cancelJson = await cancelRes.json();
+                console.log(cancelJson);
+                alert(cancelJson.status + ": " + cancelJson.input[inputValueName]);
+            });
+            div.appendChild(buttonCancel);
+
+            //Get Button
+            const buttonGet = document.createElement("button");
+            buttonGet.innerHTML = "Check Predictions";
+            buttonGet.addEventListener("click", async function () {
+                const getRes = await fetch(resJson.urls.get, {
+                    method: "GET",
+                    headers: {
+                        "authorization": "Token 07dda714b75046ebc87806db1916ea57fd857cb4"
+                    }
+                });
+                const getJson = await getRes.json();
+                console.log(getJson);
+                alert(getJson.status + ": " + getJson.input[inputValueName]);
+                const images = document.getElementById("images");
+                images.replaceChildren();
+                if (getJson.output) {
+                    getJson.output.forEach(function (url) {
+                        const image = document.createElement("img");
+                        if (url.image) {
+                            image.src = url.image;
+                        } else {
+                            image.src = url;
+                        }
+                        images.appendChild(image);
+                    });
+                }
+            });
+            div.appendChild(buttonGet);
+
+            const list = document.getElementById("predictionsList");
+            list.appendChild(div);
+        });
+    </script>
+</body>
+
+</html>
